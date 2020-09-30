@@ -1,0 +1,13 @@
+.generic-call {
+  display: flex;
+  align-items: center;
+
+  input {
+    border: none;
+    border-bottom: 0.1rem solid;
+  }
+
+  button {
+    margin-left: 10px;
+  }
+}

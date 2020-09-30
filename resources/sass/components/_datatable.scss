@@ -7,73 +7,129 @@
   letter-spacing: 0.0861328px;
   text-align: left;
 
-  tr {
-    height: 50px;
-    padding: 16px 0;
+  @media (max-width: 760px) {
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
 
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    letter-spacing: 0.0861328px;
-    line-height: 17px;
+    th {
+      display: none;
+    }
+
+    tr {
+      margin: 0 0 1rem 0;
+    }
+
+    tr:nth-child(odd) {
+      background-color: #f4f7f9;
+      border-radius: 10px;
+    }
+
+    td {
+      border: none;
+      height: 30px;
+      position: relative;
+      padding: 10px;
+      padding-left: 20%;
+    }
+
+    td:before {
+      position: absolute;
+      top: 0;
+      left: 6px;
+      width: 100%;
+      padding: 10px;
+      white-space: nowrap;
+    }
+
+    td:nth-of-type(1):before { content: "Type"; }
+    td:nth-of-type(2):before { content: "Name"; }
+    td:nth-of-type(3):before { content: "Email"; }
+    td:nth-of-type(4):before { content: "Phone"; }
+    td:nth-of-type(5):before { content: "ID"; }
+    td:nth-of-type(6):before { content: "Status"; }
+    td:nth-of-type(7):before { content: ""; }
+
+    td.actions-column {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    button {
+      margin-left: 10px;
+    }
   }
 
-  tr:first-child {
-    height: 25px;
-  }
+  @media (min-width: 761px) {
+    tr {
+      height: 50px;
+      padding: 16px 0;
 
-  tr:nth-child(odd) {
-    background-color: map-get($colors, 'white-darken-2');
-  }
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      letter-spacing: 0.0861328px;
+      line-height: 17px;
+    }
 
-  th {
-    padding: 3px 0;
+    tr:first-child {
+      height: 25px;
+    }
 
-    color: map-get($colors, 'blue-grey-lighten');
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 19px;
-  }
+    tr:nth-child(odd) {
+      background-color: map-get($colors, 'white-darken-2');
+    }
 
-  th:first-child,
-  tr td:first-child {
-    padding-left: 20px;
-  }
+    th {
+      padding: 3px 0;
 
-  tr td:first-child {
-    color: #8f9c9c;
-    font-weight: normal;
-  }
+      color: map-get($colors, 'blue-grey-lighten');
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 19px;
+    }
 
-  th, td {
+    th:first-child,
+    tr td:first-child {
+      padding-left: 20px;
+    }
+
+    tr td:first-child {
+      color: #8f9c9c;
+      font-weight: normal;
+    }
+
+    th, td {
       padding-right: 10px;
-  }
+    }
 
-  .type-column img {
-    height: 16px;
-    width: 16px;
-  }
+    .type-column img {
+      height: 16px;
+      width: 16px;
+    }
 
-  .type-column img:first-child {
-    padding-right: 5px;
-  }
+    .type-column img:first-child {
+      padding-right: 5px;
+    }
 
-  .name-column {
-    color: $primary-font-color;
-    font-weight: 700;
-  }
+    .name-column {
+      color: $primary-font-color;
+      font-weight: 700;
+    }
 
-  img {
-    height: 20%;
-    margin: 1px 2px;
-  }
+    img {
+      height: 20%;
+      margin: 1px 2px;
+    }
 
-  .actions-column {
-    display: flex;
-    justify-content: space-around;
-    width: 180px;
-    padding-top: 10px;
-    float: right;
+    .actions-column {
+      display: flex;
+      justify-content: space-around;
+      width: 180px;
+      padding-top: 10px;
+      float: right;
+    }
+
   }
 }

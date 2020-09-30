@@ -1,7 +1,7 @@
 html,
 body {
   height: 100%;
-
+  z-index: 1000;
   color: $primary-font-color;
   font-size: $general-font-size;
 }

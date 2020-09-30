@@ -1,7 +1,7 @@
 .container-header {
   display: flex;
   grid-area: header;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 0 20px;
 
   background-color: map-get($colors, 'white');
