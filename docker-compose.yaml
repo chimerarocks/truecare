@@ -1,0 +1,76 @@
+version: '3'
+
+services:
+
+    true-care-app:
+        build: Dockerfile.dev
+        container_name: true-care-app
+        entrypoint: dockerize -template ./.docker/templates/app/.env:.env -wait tcp://true-care-db:3306 -timeout 40s ./.docker/entrypoint.sh
+        env_file:
+          - .env.dev
+        volumes:
+          - .:/var/www
+        networks:
+          - true-care-app-network
+        depends_on:
+          - true-care-db
+          - true-care-redis
+
+    true-care-nginx:
+        build: .docker/nginx
+        container_name: true-care-nginx
+        entrypoint: dockerize -template ./.docker/templates/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf nginx -g 'daemon off;'
+        restart: always
+        tty: true
+        environment:
+          - NGINX_HOST=true-care-app
+          - NGINX_PORT=9000
+        ports:
+          - "8000:80"
+        volumes:
+          - .:/var/www
+        networks:
+          - true-care-app-network
+        depends_on:
+          - true-care-app
+
+    true-care-redis:
+        image: redis:alpine
+        container_name: true-care-redis
+        restart: always
+        expose:
+          - 6379
+        networks:
+          - true-care-app-network
+
+    true-care-db:
+        build: .docker/mysql
+        command: --innodb-use-native-aio=0
+        container_name: true-care-db
+        restart: always
+        tty: true
+        ports:
+          - "3306:3306"
+        volumes:
+          - ./.docker/dbdata:/var/lib/mysql
+        environment:
+          - MYSQL_DATABASE=truecare_dev
+          - MYSQL_ROOT_PASSWORD=truecare
+          - MYSQL_USER=root
+        networks:
+          - true-care-app-network
+
+    true-care-adminer:
+        image: adminer
+        container_name: true-care-adminer
+        restart: always
+        ports:
+          - "9998:8080"
+        networks:
+          - true-care-app-network
+        depends_on:
+          - true-care-db
+
+networks:
+  true-care-app-network:
+      driver: bridge
