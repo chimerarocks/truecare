@@ -8,11 +8,6 @@ RUN apt-get update \
         && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
         && apt-get install -y nodejs
 
-ENV DOCKERIZE_VERSION v0.6.1
-RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
-    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
-    && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
-
 RUN rm -rf /var/www/html \
         && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -35,3 +30,5 @@ WORKDIR /var/www
 RUN rm -rf /var/www/html \
             && ln -s public html
 COPY --from=builder /var/www .
+
+CMD ["vendor/bin/heroku-php-apache2",  "public/"]
