@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Value\TwilioConfiguration;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Twilio\Rest\Client;
 
@@ -44,5 +45,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+        if (env('APP_ENV') === 'production') {
+            URL::forceScheme('https');
+        }
     }
 }
