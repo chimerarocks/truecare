@@ -10,7 +10,7 @@ body {
   display: grid;
   grid-template-areas: $general-grid-template-areas;
   grid-template-columns: 70px auto;
-  grid-template-rows: 1fr 16fr;
+  grid-template-rows: 72px auto;
   min-height: 100%;
 
   background-color: map-get($colors, 'white-darken-3');
