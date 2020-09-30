@@ -3,7 +3,7 @@ version: '3'
 services:
 
     true-care-app:
-        build: Dockerfile.dev
+        build: .
         container_name: true-care-app
         entrypoint: dockerize -template ./.docker/templates/app/.env:.env -wait tcp://true-care-db:3306 -timeout 40s ./.docker/entrypoint.sh
         env_file:
